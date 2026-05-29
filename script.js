@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const navToggle = document.getElementById('nav-toggle');
   const navLinks = document.getElementById('nav-links');
 
-  if (navToggle) {
+  if (navToggle && navLinks) {
     navToggle.addEventListener('click', () => {
       navLinks.classList.toggle('open');
       navToggle.classList.toggle('active');
@@ -96,44 +96,4 @@ document.addEventListener('DOMContentLoaded', () => {
     );
     statsObserver.observe(statsSection);
   }
-
-  // ---------- Smooth Scroll for Anchor Links ----------
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e) => {
-      const targetId = anchor.getAttribute('href');
-      if (targetId === '#') return;
-      
-      const target = document.querySelector(targetId);
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  });
-
-  // ---------- Active Nav Link on Scroll ----------
-  const sections = document.querySelectorAll('section[id]');
-  const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
-
-  const setActiveLink = () => {
-    const scrollPos = window.scrollY + 150;
-
-    sections.forEach(section => {
-      const top = section.offsetTop;
-      const height = section.offsetHeight;
-      const id = section.getAttribute('id');
-
-      if (scrollPos >= top && scrollPos < top + height) {
-        navAnchors.forEach(a => {
-          a.classList.remove('active');
-          if (a.getAttribute('href') === `#${id}`) {
-            a.classList.add('active');
-          }
-        });
-      }
-    });
-  };
-
-  window.addEventListener('scroll', setActiveLink, { passive: true });
-
 });

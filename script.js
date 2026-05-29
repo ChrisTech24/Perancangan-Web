@@ -1,10 +1,8 @@
-/* ============================================
-   TANJUNGPINANG BUDAYA - JavaScript (Clean)
-   ============================================ */
+
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ---------- Navbar Scroll ----------
+  // navbar
   const navbar = document.querySelector('.navbar');
   const handleScroll = () => {
     if (window.scrollY > 60) {
@@ -16,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
 
-  // ---------- Mobile Menu ----------
+  // Mobile Menu 
   const navToggle = document.getElementById('nav-toggle');
   const navLinks = document.getElementById('nav-links');
 
@@ -34,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---------- Scroll Reveal ----------
+  // Scroll Reveal 
   const revealElements = document.querySelectorAll(
     '.reveal, .reveal-scale, .stagger-children'
   );
@@ -55,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   revealElements.forEach(el => revealObserver.observe(el));
 
-  // ---------- Counter Animation ----------
+  // Counter Animation 
   const counters = document.querySelectorAll('.stat-number[data-count]');
   let countersAnimated = false;
 

@@ -8,6 +8,15 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- Page Loader -->
+  <div class="page-loader" id="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
   <nav class="navbar" id="navbar">
     <div class="container">
       <a href="index.html" class="nav-logo">
@@ -29,17 +38,26 @@
 
   <section class="hero culture-hero">
     <div class="hero-overlay"></div>
+    <div class="hero-ornament hero-ornament-1"></div>
+    <div class="hero-ornament hero-ornament-3"></div>
     <div class="container hero-content">
       <div class="hero-badge">
         <span class="dot"></span>
         Wisata Tanjungpinang
       </div>
-      <h1>Destinasi Budaya</h1>
+      <h1>Destinasi <span>Budaya</span></h1>
       <p class="hero-desc">
         Temukan destinasi wisata budaya dan alam di Tanjungpinang yang wajib dikunjungi.
       </p>
     </div>
   </section>
+
+  <!-- Wave Divider -->
+  <div class="wave-divider" style="background: var(--white); margin-top: -2px;">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#162e8e" d="M0,0 C480,80 960,0 1440,60 L1440,0 L0,0 Z"/>
+    </svg>
+  </div>
 
   <main>
     <section class="destinations" id="destinasi">
@@ -143,6 +161,11 @@
       </div>
     </div>
   </footer>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="back-to-top" aria-label="Kembali ke atas">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
 
   <script src="script.js"></script>
 </body>

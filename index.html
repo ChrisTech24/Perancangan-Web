@@ -10,6 +10,14 @@
 </head>
 <body>
 
+  <!-- Page Loader -->
+  <div class="page-loader" id="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
   <!-- ========== Section Navigasi ========== -->
   <nav class="navbar" id="navbar">
     <div class="container">
@@ -33,6 +41,12 @@
   <!-- ========== Section Hero ========== -->
   <section class="hero" id="hero">
     <div class="hero-overlay"></div>
+    <canvas id="hero-particles"></canvas>
+
+    <!-- Floating Ornaments -->
+    <div class="hero-ornament hero-ornament-1"></div>
+    <div class="hero-ornament hero-ornament-2"></div>
+    <div class="hero-ornament hero-ornament-3"></div>
 
     <div class="container hero-content">
       <div class="hero-badge">
@@ -83,6 +97,13 @@
     </div>
   </section>
 
+  <!-- Wave Divider: Hero → About -->
+  <div class="wave-divider" style="background: var(--white); margin-top: -2px;">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#162e8e" d="M0,0 C360,100 1080,0 1440,80 L1440,0 L0,0 Z"/>
+    </svg>
+  </div>
+
   <!-- ========== Section Tentang ========== -->
   <section class="about" id="tentang">
     <div class="container">
@@ -128,6 +149,13 @@
     </div>
   </section>
 
+  <!-- Wave Divider: About → Culture -->
+  <div class="wave-divider" style="background: linear-gradient(180deg, var(--off-white) 0%, var(--blue-50) 100%); margin-top: -2px;">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#ffffff" d="M0,0 C480,80 960,0 1440,60 L1440,0 L0,0 Z"/>
+    </svg>
+  </div>
+
   <!-- ========== Section Budaya ========== -->
   <section class="culture" id="budaya">
     <div class="container">
@@ -147,12 +175,12 @@
             <span>🎶</span>
           </div>
           <div class="culture-card-body">
-            <h3>Tari Zapin & Joget</h3>
+            <h3>Tari Zapin &amp; Joget</h3>
             <p>
               Tarian tradisional Melayu yang memadukan gerakan anggun dengan iringan gambus dan marwas. 
               Tari Zapin menjadi simbol keanggunan budaya Melayu Kepulauan Riau.
             </p>
-            <a href="#" class="card-link">
+            <a href="budaya.html" class="card-link">
               Selengkapnya
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
@@ -170,7 +198,7 @@
               Nikmati sajian khas seperti Otak-Otak, Gonggong, Luti Gendang, dan Mie Tarempa. 
               Setiap hidangan menceritakan kisah laut dan tradisi masak turun-temurun.
             </p>
-            <a href="#" class="card-link">
+            <a href="budaya.html" class="card-link">
               Selengkapnya
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
@@ -183,12 +211,12 @@
             <span>🧶</span>
           </div>
           <div class="culture-card-body">
-            <h3>Songket & Kerajinan</h3>
+            <h3>Songket &amp; Kerajinan</h3>
             <p>
               Tenun songket dengan benang emas, ukiran kayu bermotif flora Melayu, dan berbagai 
               kerajinan tangan yang menjadi kebanggaan pengrajin lokal.
             </p>
-            <a href="#" class="card-link">
+            <a href="budaya.html" class="card-link">
               Selengkapnya
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
@@ -241,6 +269,13 @@
       </div>
     </div>
   </section>
+
+  <!-- Wave Divider: Destinations → Gurindam -->
+  <div class="wave-divider" style="background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-950) 50%, #070d2a 100%); margin-top: -2px;">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#ffffff" d="M0,0 C480,80 960,0 1440,60 L1440,0 L0,0 Z"/>
+    </svg>
+  </div>
 
   <!-- ========== Section Sorotan Budaya ========== -->
   <section class="gurindam" id="gurindam">
@@ -343,6 +378,11 @@
       </div>
     </div>
   </footer>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" id="back-to-top" aria-label="Kembali ke atas">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
 
   <script src="script.js"></script>
 </body>

@@ -8,6 +8,15 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- Page Loader -->
+  <div class="page-loader" id="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
   <nav class="navbar" id="navbar">
     <div class="container">
       <a href="index.html" class="nav-logo">
@@ -34,59 +43,96 @@
         <span class="dot"></span>
         Galeri Budaya
       </div>
-      <h1>Visual Tanjungpinang</h1>
+      <h1>Visual <span>Tanjungpinang</span></h1>
       <p class="hero-desc">
         Kumpulan momen budaya, desa pesisir, dan keindahan warisan Melayu dalam tampilan galeri yang elegan.
       </p>
     </div>
   </section>
 
+  <!-- Wave Divider -->
+  <div class="wave-divider" style="background: var(--white); margin-top: -2px;">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#162e8e" d="M0,0 C480,80 960,0 1440,60 L1440,0 L0,0 Z"/>
+    </svg>
+  </div>
+
   <main>
     <section class="about" id="galeri">
       <div class="container">
         <div class="about-centered reveal">
           <span class="section-label">Galeri</span>
-          <h2 class="section-title">Potret Budaya & Wisata</h2>
+          <h2 class="section-title">Potret Budaya &amp; Wisata</h2>
           <p class="section-subtitle about-desc">
             Lihat koleksi visual dari tarian, kuliner, kerajinan tangan, dan destinasi khas Tanjungpinang.
           </p>
         </div>
 
+        <!-- Filter Buttons -->
+        <div class="gallery-filter reveal">
+          <button class="gallery-filter-btn active" data-filter="all">Semua</button>
+          <button class="gallery-filter-btn" data-filter="budaya">Budaya</button>
+          <button class="gallery-filter-btn" data-filter="kuliner">Kuliner</button>
+          <button class="gallery-filter-btn" data-filter="wisata">Wisata</button>
+        </div>
+
         <div class="gallery-grid stagger-children">
-          <div class="gallery-card reveal-scale">
+          <div class="gallery-card reveal-scale" data-category="budaya" data-emoji="🎭" data-title="Tari Zapin" data-desc="Tarian tradisional Melayu yang memadukan gerakan anggun dengan musik gambus. Tari Zapin merupakan warisan budaya yang menjadi kebanggaan masyarakat Tanjungpinang.">
             <div class="gallery-card-image">🎭</div>
-            <h3>Tari Zapin</h3>
-            <p>Gerak anggun yang menjadi simbol budaya Melayu.</p>
+            <div class="gallery-card-content">
+              <h3>Tari Zapin</h3>
+              <p>Gerak anggun yang menjadi simbol budaya Melayu.</p>
+            </div>
           </div>
-          <div class="gallery-card reveal-scale">
+          <div class="gallery-card reveal-scale" data-category="kuliner" data-emoji="🍽️" data-title="Kuliner Otak-Otak" data-desc="Sajian laut khas pesisir Kepulauan Riau. Otak-otak dibuat dari ikan segar yang dihaluskan, dicampur rempah-rempah, lalu dibakar dalam daun kelapa.">
             <div class="gallery-card-image">🍽️</div>
-            <h3>Kuliner Otak-Otak</h3>
-            <p>Sajian laut khas pesisir Kepulauan Riau.</p>
+            <div class="gallery-card-content">
+              <h3>Kuliner Otak-Otak</h3>
+              <p>Sajian laut khas pesisir Kepulauan Riau.</p>
+            </div>
           </div>
-          <div class="gallery-card reveal-scale">
+          <div class="gallery-card reveal-scale" data-category="budaya" data-emoji="🧵" data-title="Songket Emas" data-desc="Tenun songket merupakan kerajinan tangan yang menggunakan benang emas dan perak untuk menciptakan motif khas Melayu yang indah dan mewah.">
             <div class="gallery-card-image">🧵</div>
-            <h3>Songket Emas</h3>
-            <p>Tenun tradisional dengan motif Melayu yang mewah.</p>
+            <div class="gallery-card-content">
+              <h3>Songket Emas</h3>
+              <p>Tenun tradisional dengan motif Melayu yang mewah.</p>
+            </div>
           </div>
-          <div class="gallery-card reveal-scale">
+          <div class="gallery-card reveal-scale" data-category="wisata" data-emoji="🏝️" data-title="Pulau Penyengat" data-desc="Pulau bersejarah yang menyimpan peninggalan Kerajaan Riau-Lingga. Di sini terdapat Masjid Raya Sultan Riau yang dibangun dari putih telur, serta makam para raja Melayu.">
             <div class="gallery-card-image">🏝️</div>
-            <h3>Pulau Penyengat</h3>
-            <p>Pesona sejarah dan arsitektur Melayu yang memikat.</p>
+            <div class="gallery-card-content">
+              <h3>Pulau Penyengat</h3>
+              <p>Pesona sejarah dan arsitektur Melayu yang memikat.</p>
+            </div>
           </div>
-          <div class="gallery-card reveal-scale">
+          <div class="gallery-card reveal-scale" data-category="wisata" data-emoji="🌅" data-title="Pantai Tanjung Siambang" data-desc="Pantai yang menyuguhkan pemandangan matahari terbenam yang memukau. Tempat ideal untuk menikmati ketenangan alam pesisir Tanjungpinang.">
             <div class="gallery-card-image">🌅</div>
-            <h3>Pantai Tanjung Siambang</h3>
-            <p>Momen senja dengan panorama laut yang tenang.</p>
+            <div class="gallery-card-content">
+              <h3>Pantai Tanjung Siambang</h3>
+              <p>Momen senja dengan panorama laut yang tenang.</p>
+            </div>
           </div>
-          <div class="gallery-card reveal-scale">
+          <div class="gallery-card reveal-scale" data-category="wisata" data-emoji="🏘️" data-title="Kampung Pelangi" data-desc="Perkampungan nelayan yang rumah-rumahnya dihiasi warna-warni cerah. Kampung Pelangi menjadi destinasi wisata instagramable yang menampilkan kehidupan pesisir Melayu.">
             <div class="gallery-card-image">🏘️</div>
-            <h3>Kampung Pelangi</h3>
-            <p>Rumah-rumah berwarna cerah yang membangkitkan suasana pesisir.</p>
+            <div class="gallery-card-content">
+              <h3>Kampung Pelangi</h3>
+              <p>Rumah-rumah berwarna cerah yang membangkitkan suasana pesisir.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
   </main>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox-overlay" id="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightbox-close" aria-label="Tutup">&times;</button>
+      <span class="lightbox-emoji" id="lightbox-emoji"></span>
+      <h3 id="lightbox-title"></h3>
+      <p id="lightbox-desc"></p>
+    </div>
+  </div>
 
   <footer class="footer">
     <div class="container">
@@ -131,6 +177,11 @@
       </div>
     </div>
   </footer>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="back-to-top" aria-label="Kembali ke atas">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
 
   <script src="script.js"></script>
 </body>

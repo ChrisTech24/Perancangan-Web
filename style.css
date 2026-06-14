@@ -328,18 +328,21 @@ img {
   color: rgba(255, 255, 255, 0.85);
   transition: color 0.3s;
   position: relative;
+  display: inline-block; 
+  padding-bottom: 8px;
 }
 
 .nav-links a::after {
   content: '';
   position: absolute;
-  bottom: -5px;
+  bottom: 0px;
   left: 0;
   width: 0;
   height: 2px;
   background: linear-gradient(90deg, var(--blue-400), var(--teal-400));
   border-radius: 2px;
   transition: width 0.4s var(--ease-out-expo);
+  pointer-events: none;
 }
 
 .nav-links a:hover::after,
@@ -840,9 +843,10 @@ img {
 
 .about-feature {
   display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 1.4rem;
+  flex-direction: column; /* Mengubah susunan gambar dan teks menjadi atas-bawah */
+  align-items: center;    /* Menengahkan gambar */
+  text-align: center;     /* Menengahkan teks */          
+  padding: 0;
   background: linear-gradient(135deg, var(--blue-50), rgba(255,255,255,0.8));
   border-radius: var(--radius-md);
   border: 1px solid var(--blue-100);
@@ -862,6 +866,7 @@ img {
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s var(--ease-out-expo);
+  z-index: 2; /* Pastikan garis warnanya ada di atas foto */
 }
 
 .about-feature:hover::before {
@@ -875,22 +880,38 @@ img {
 }
 
 .about-feature-icon {
-  width: 48px;
-  height: 48px;
-  min-width: 48px;
-  display: flex;
+  width: 100%;
+  height: 160px;
+  min-width: 80px;
+  display: block;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, var(--blue-500), var(--blue-700));
-  border-radius: var(--radius-sm);
-  font-size: 1.3rem;
+  border-radius: 0;
   color: white;
-  box-shadow: 0 4px 12px rgba(26, 79, 245, 0.25);
   transition: transform 0.3s;
+  overflow: hidden; 
+  padding: 0; 
 }
 
+.about-feature-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  transition: transform 0.5s ease;
+}
+
+
 .about-feature:hover .about-feature-icon {
-  transform: rotate(-5deg) scale(1.05);
+  transform: scale(1.08); 
+}
+.about-feature > div:not(.about-feature-icon) {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px; 
 }
 
 .about-feature h4 {
@@ -966,8 +987,9 @@ img {
 }
 
 .culture-card-icon {
-  height: 130px;
-  display: flex;
+  width: 100%;
+  height: 200px;
+  display: block;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, var(--blue-50), var(--blue-100));
@@ -984,17 +1006,24 @@ img {
   background: radial-gradient(circle, rgba(52, 112, 255, 0.08), transparent 70%);
   border-radius: 50%;
   animation: floatOrb 6s ease-in-out infinite;
+  display: none;
 }
 
-.culture-card-icon span {
-  font-size: 3.2rem;
-  line-height: 1;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
-  transition: transform 0.4s var(--ease-bounce);
+/* Pastikan span dan img memenuhi kotak 100% dan dipotong rapi (cover) */
+.culture-card-icon span,
+.culture-card-icon img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin: 0;
+  padding: 0;
+  object-fit: cover;
+  filter: none; /* Hapus drop-shadow bawaan emoji */
+  transition: transform 0.5s ease;
 }
 
 .culture-card:hover .culture-card-icon span {
-  transform: scale(1.15) rotate(-5deg);
+  transform: scale(1.08);
 }
 
 .culture-card-body {
@@ -1539,55 +1568,68 @@ img {
   cursor: pointer;
   position: relative;
 }
+/* --- HAPUS/TIMPA KODE LAMA DENGAN INI --- */
 
+/* Kita hapus kaca pembesar dari card utama agar tidak salah posisi */
 .gallery-card::after {
+  display: none; 
+}
+
+/* Pengaturan kotak gambar */
+.gallery-card-image {
+  width: 100%;
+  height: 220px; /* Tinggi seragam untuk semua foto galeri */
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+/* Memaksa foto memenuhi kotak tanpa gepeng */
+.gallery-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+/* Efek zoom saat kartu di-hover */
+.gallery-card:hover .gallery-card-image img {
+  transform: scale(1.08);
+}
+
+/* Memindahkan icon kaca pembesar agar persis di tengah FOTO */
+.gallery-card-image::before {
   content: '🔍';
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
-  font-size: 2rem;
+  font-size: 2.5rem;
+  color: white;
   opacity: 0;
-  transition: transform 0.4s var(--ease-bounce), opacity 0.3s;
   z-index: 3;
-  filter: grayscale(1) brightness(2);
+  transition: transform 0.4s var(--ease-bounce), opacity 0.3s;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.3); /* Agar icon terlihat jelas di atas foto apapun */
 }
 
-.gallery-card:hover::after {
+/* Memunculkan icon saat di-hover */
+.gallery-card:hover .gallery-card-image::before {
   transform: translate(-50%, -50%) scale(1);
-  opacity: 0.7;
+  opacity: 1;
 }
 
-.gallery-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-xl);
-}
-
-.gallery-card-image {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  border-radius: 0;
-  background: linear-gradient(135deg, var(--blue-50), var(--blue-100));
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.5s;
-}
-
-.gallery-card:hover .gallery-card-image {
-  transform: scale(1.05);
-}
-
+/* Efek bayangan gelap (overlay) di atas foto saat di-hover agar icon makin jelas */
 .gallery-card-image::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.15) 0%, transparent 60%);
+  background: rgba(7, 13, 42, 0.4); /* Warna gelap transparan */
   opacity: 0;
   transition: opacity 0.3s;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .gallery-card:hover .gallery-card-image::after {
@@ -1613,11 +1655,14 @@ img {
 }
 
 /* Lightbox */
+/* ================================================
+   Lightbox Modal & Image Wrapper
+   ================================================ */
 .lightbox-overlay {
   position: fixed;
   inset: 0;
   z-index: 2000;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(7, 13, 42, 0.9); /* Sedikit digelapkan agar foto lebih menonjol */
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   display: flex;
@@ -1637,14 +1682,15 @@ img {
 .lightbox-content {
   background: var(--white);
   border-radius: var(--radius-xl);
-  padding: 3rem;
-  max-width: 520px;
+  padding: 2.2rem; /* Ruang dalam (padding) sedikit dikurangi agar foto bisa lebih luas */
+  max-width: 600px; /* Diperlebar dari 520px agar foto landscape terlihat maksimal */
   width: 90%;
   text-align: center;
   transform: scale(0.85) translateY(30px);
   transition: transform 0.5s var(--ease-out-expo);
   cursor: auto;
   position: relative;
+  box-shadow: var(--shadow-xl);
 }
 
 .lightbox-overlay.active .lightbox-content {
@@ -1653,8 +1699,8 @@ img {
 
 .lightbox-close {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 1.2rem;
+  right: 1.2rem;
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -1665,18 +1711,31 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   transition: all 0.3s;
+  z-index: 10;
 }
 
 .lightbox-close:hover {
-  background: var(--blue-500);
+  background: var(--blue-600);
   color: white;
 }
 
-.lightbox-emoji {
-  font-size: 5rem;
+/* --- INI BAGIAN BARU UNTUK MENGATUR FOTO --- */
+.lightbox-image-wrapper {
+  width: 100%;
+  height: 320px; /* Tinggi foto dikunci agar tidak menutupi teks di bawahnya */
+  overflow: hidden;
+  border-radius: var(--radius-md);
   margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  background: var(--blue-50);
+}
+
+#lightbox-gambar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Mencegah foto jadi gepeng */
   display: block;
 }
 
@@ -1690,7 +1749,7 @@ img {
 
 .lightbox-content p {
   font-size: 0.95rem;
-  color: var(--gray-500);
+  color: var(--gray-600);
   line-height: 1.7;
 }
 

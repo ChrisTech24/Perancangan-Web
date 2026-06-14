@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
 
   // ============================
@@ -12,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
         pageLoader.classList.add('loaded');
       }, 400);
     });
-    // Fallback: hide loader after 2s regardless
     setTimeout(() => {
       pageLoader.classList.add('loaded');
     }, 2000);
@@ -46,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   handleScroll();
 
   // ============================
-  // Mobile Menu with animated toggle
+  // Mobile Menu
   // ============================
   const navToggle = document.getElementById('nav-toggle');
   const navLinks = document.getElementById('nav-links');
@@ -57,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
       navToggle.classList.toggle('active');
     });
 
-    // Close menu on link click
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         navLinks.classList.remove('open');
@@ -65,7 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Close menu on outside click
     document.addEventListener('click', (e) => {
       if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
         navLinks.classList.remove('open');
@@ -77,24 +72,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // ============================
   // Scroll Reveal
   // ============================
-  const revealElements = document.querySelectorAll(
-    '.reveal, .reveal-scale, .stagger-children'
-  );
-
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    },
-    {
-      threshold: 0.12,
-      rootMargin: '0px 0px -50px 0px'
-    }
-  );
-
+  const revealElements = document.querySelectorAll('.reveal, .reveal-scale, .stagger-children');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
   revealElements.forEach(el => revealObserver.observe(el));
 
   // ============================
@@ -106,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const animateCounters = () => {
     if (countersAnimated) return;
     countersAnimated = true;
-
     counters.forEach(counter => {
       const target = parseInt(counter.getAttribute('data-count'), 10);
       const suffix = counter.getAttribute('data-suffix') || '';
@@ -115,35 +99,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const step = (timestamp) => {
         const progress = Math.min((timestamp - start) / duration, 1);
-        // Smoother easing: ease-out-quart
         const eased = 1 - Math.pow(1 - progress, 4);
         const current = Math.floor(eased * target);
         counter.textContent = current.toLocaleString('id-ID') + suffix;
-
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        }
+        if (progress < 1) requestAnimationFrame(step);
       };
-
       requestAnimationFrame(step);
     });
   };
 
   const statsSection = document.querySelector('.hero-stats');
   if (statsSection) {
-    const statsObserver = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          animateCounters();
-        }
-      },
-      { threshold: 0.3 }
-    );
+    const statsObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) animateCounters();
+    }, { threshold: 0.3 });
     statsObserver.observe(statsSection);
   }
 
   // ============================
-  // Hero Particle Animation (Canvas)
+  // Hero Particle Animation
   // ============================
   const canvas = document.getElementById('hero-particles');
   if (canvas) {
@@ -176,33 +150,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const drawParticles = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       particles.forEach(p => {
-        p.x += p.speedX;
-        p.y += p.speedY;
-        p.pulse += p.pulseSpeed;
-
-        // Wrap around
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-
+        p.x += p.speedX; p.y += p.speedY; p.pulse += p.pulseSpeed;
+        if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
         const dynamicOpacity = p.opacity * (0.6 + 0.4 * Math.sin(p.pulse));
-
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 255, 255, ${dynamicOpacity})`;
         ctx.fill();
       });
-
-      // Draw connections between nearby particles
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-
           if (dist < 120) {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
@@ -213,28 +175,19 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
       }
-
       animId = requestAnimationFrame(drawParticles);
     };
 
-    resizeCanvas();
-    createParticles();
-    drawParticles();
+    resizeCanvas(); createParticles(); drawParticles();
+    window.addEventListener('resize', () => { resizeCanvas(); createParticles(); });
 
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      createParticles();
-    });
-
-    // Pause animation when not visible
     const heroSection = document.getElementById('hero');
     if (heroSection) {
       const particleObserver = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
           if (!animId) drawParticles();
         } else {
-          cancelAnimationFrame(animId);
-          animId = null;
+          cancelAnimationFrame(animId); animId = null;
         }
       }, { threshold: 0.1 });
       particleObserver.observe(heroSection);
@@ -247,13 +200,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const backToTop = document.getElementById('back-to-top');
   if (backToTop) {
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        backToTop.classList.add('visible');
-      } else {
-        backToTop.classList.remove('visible');
-      }
+      if (window.scrollY > 500) backToTop.classList.add('visible');
+      else backToTop.classList.remove('visible');
     }, { passive: true });
-
     backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
@@ -267,10 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      // Update active button
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
       const filter = btn.getAttribute('data-filter');
 
       galleryCards.forEach(card => {
@@ -286,41 +233,43 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           card.style.opacity = '0';
           card.style.transform = 'scale(0.9)';
-          setTimeout(() => {
-            card.style.display = 'none';
-          }, 300);
+          setTimeout(() => { card.style.display = 'none'; }, 300);
         }
       });
     });
   });
 
   // ============================
-  // Gallery Lightbox
+  // Gallery Lightbox (YANG SUDAH DIPERBAIKI)
   // ============================
   const lightbox = document.getElementById('lightbox');
   const lightboxClose = document.getElementById('lightbox-close');
-  const lightboxEmoji = document.getElementById('lightbox-emoji');
+  const lightboxgambar = document.getElementById('lightbox-gambar'); 
   const lightboxTitle = document.getElementById('lightbox-title');
   const lightboxDesc = document.getElementById('lightbox-desc');
 
-  if (lightbox) {
+  // Mengecek apakah elemen lightboxgambar ditemukan di HTML
+  if (lightbox && lightboxgambar) { 
     galleryCards.forEach(card => {
       card.addEventListener('click', () => {
-        const emoji = card.getAttribute('data-emoji');
+        const gambar = card.getAttribute('data-gambar');
         const title = card.getAttribute('data-title');
         const desc = card.getAttribute('data-desc');
 
-        lightboxEmoji.textContent = emoji;
+        lightboxgambar.src = gambar; 
+        lightboxgambar.alt = title;  
         lightboxTitle.textContent = title;
         lightboxDesc.textContent = desc;
+        
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
       });
     });
-
+    
     const closeLightbox = () => {
       lightbox.classList.remove('active');
       document.body.style.overflow = '';
+      setTimeout(() => { lightboxgambar.src = ""; }, 400);
     };
 
     lightboxClose.addEventListener('click', closeLightbox);
@@ -332,77 +281,44 @@ document.addEventListener('DOMContentLoaded', () => {
         closeLightbox();
       }
     });
+  } else if (lightbox && !lightboxgambar) {
+      console.error("ERROR: ID 'lightbox-gambar' tidak ditemukan di file HTML kamu!");
   }
 
   // ============================
-  // Gurindam Slider — Smooth drag & momentum wheel
+  // Gurindam Slider
   // ============================
   const sliders = document.querySelectorAll('.gurindam-slider');
   sliders.forEach(slider => {
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
+    let isDown = false; let startX; let scrollLeft;
     slider.addEventListener('mousedown', (e) => {
-      isDown = true;
-      slider.classList.add('dragging');
-      startX = e.pageX - slider.offsetLeft;
-      scrollLeft = slider.scrollLeft;
+      isDown = true; slider.classList.add('dragging');
+      startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft;
     });
-
-    slider.addEventListener('mouseleave', () => {
-      isDown = false;
-      slider.classList.remove('dragging');
-    });
-
-    slider.addEventListener('mouseup', () => {
-      isDown = false;
-      slider.classList.remove('dragging');
-    });
-
+    slider.addEventListener('mouseleave', () => { isDown = false; slider.classList.remove('dragging'); });
+    slider.addEventListener('mouseup', () => { isDown = false; slider.classList.remove('dragging'); });
     slider.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - slider.offsetLeft;
-      const walk = (x - startX) * 2;
+      if (!isDown) return; e.preventDefault();
+      const x = e.pageX - slider.offsetLeft; const walk = (x - startX) * 2;
       slider.scrollLeft = scrollLeft - walk;
     });
 
-    // Momentum-based wheel scroll
-    let targetScroll = slider.scrollLeft;
-    let animating = false;
-
+    let targetScroll = slider.scrollLeft; let animating = false;
     const smoothScroll = () => {
       const diff = targetScroll - slider.scrollLeft;
-      if (Math.abs(diff) < 0.5) {
-        slider.scrollLeft = targetScroll;
-        animating = false;
-        return;
-      }
-      slider.scrollLeft += diff * 0.12;
-      requestAnimationFrame(smoothScroll);
+      if (Math.abs(diff) < 0.5) { slider.scrollLeft = targetScroll; animating = false; return; }
+      slider.scrollLeft += diff * 0.12; requestAnimationFrame(smoothScroll);
     };
 
     slider.addEventListener('wheel', (e) => {
       e.preventDefault();
       const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-      targetScroll = Math.max(
-        0,
-        Math.min(
-          slider.scrollWidth - slider.clientWidth,
-          targetScroll + delta * 1.8
-        )
-      );
-      if (!animating) {
-        animating = true;
-        requestAnimationFrame(smoothScroll);
-      }
+      targetScroll = Math.max(0, Math.min(slider.scrollWidth - slider.clientWidth, targetScroll + delta * 1.8));
+      if (!animating) { animating = true; requestAnimationFrame(smoothScroll); }
     }, { passive: false });
 
     slider.addEventListener('scroll', () => {
-      if (!animating) {
-        targetScroll = slider.scrollLeft;
-      }
+      if (!animating) targetScroll = slider.scrollLeft;
     }, { passive: true });
   });
 

@@ -1,98 +1,43 @@
-# 🏛️ Pesona Budaya Melayu Tanjungpinang
+# 🏝️ Pesona Budaya Melayu Tanjungpinang
 
-Website statis yang menampilkan kekayaan budaya, sastra, dan destinasi wisata Kota Tanjungpinang, Kepulauan Riau.
+Website statis interaktif kelas premium yang dirancang khusus untuk mempromosikan pariwisata, sejarah, dan kekayaan budaya Melayu di Kota Tanjungpinang. Proyek ini merupakan tugas mata kuliah Perancangan Web yang dibangun murni menggunakan teknologi dasar web tanpa bergantung pada framework atau library eksternal.
 
-## 🎨 Tema
+## ✨ Fitur Utama & UI/UX
 
-**Modern Melayu Maritime Glass** — perpaduan antara estetika glassmorphism modern dengan nuansa budaya Melayu dan maritim Tanjungpinang. Menggunakan palet warna emerald, navy, teal, gold, dan ivory.
+*   **Desain Premium & Modern**: Menggunakan estetika *Glassmorphism* (efek kaca tembus pandang) bergaya iOS untuk memberikan kesan elegan dan internasional.
+*   **Animasi Halus (Smooth Micro-interactions)**: Transisi elemen, efek *hover*, dan *scroll reveal* yang memanjakan mata tanpa mengorbankan performa.
+*   **Filter Galeri Seamless**: Animasi penyaringan (*filtering*) kategori foto di halaman Galeri yang responsif dan sama sekali tidak memiliki jeda (*delay*) atau *glitch*.
+*   **Slider Gurindam Interaktif**: Carousel *full-bleed* di halaman budaya untuk menampilkan pasal-pasal Gurindam 12 karya Raja Ali Haji dengan efek *blur* yang rapi di sisi tepi layar.
+*   **Auto-Layout Flexbox Cerdas**: Kartu destinasi dan budaya dirancang untuk memiliki tinggi dan letak tombol yang sejajar sempurna meskipun pengguna membuka panel detail yang memanjang ke bawah.
+*   **Integrasi Peta Langsung**: Tautan destinasi (Pulau Penyengat, Senggarang, dll.) di bagian footer yang akan langsung mengarahkan pengguna ke rute akurat di Google Maps.
+*   **100% Responsif**: Tata letak yang beradaptasi sempurna di berbagai ukuran layar, dari desktop *ultrawide* hingga *smartphone*.
 
-## ✨ Fitur Utama
+## 🛠️ Teknologi yang Digunakan
 
-- **Glassmorphism / Liquid Glass** — efek kaca transparan pada navbar, card, dan panel
-- **Animasi Smooth** — scroll reveal, hover lift, zoom gambar, expand/collapse
-- **Galeri Interaktif** — filter kategori, lightbox modal, zoom gambar
-- **Gurindam Dua Belas** — slider horizontal dengan tag (Nasihat, Adab, Moral, Kearifan) dan penjelasan makna
-- **Expand / Collapse** — tombol "Lihat Selengkapnya" yang berfungsi pada halaman budaya dan wisata
-- **Tag Aktivitas Wisata** — label kategori (Sejarah, Foto, Keluarga, Kuliner, Alam, Budaya, Religi)
-- **Responsif** — tampilan optimal di 320px hingga 1440px
-- **Aksesibilitas** — aria-label, aria-expanded, alt text, focus-visible, prefers-reduced-motion
-- **Back to Top** — tombol kembali ke atas yang muncul saat scroll
-- **Scroll Progress Bar** — indikator progres scroll di bagian atas halaman
-- **Page Loader** — animasi loading saat halaman dimuat
+*   **HTML5** (Semantik dan Terstruktur)
+*   **CSS3** (Vanilla CSS, Custom Properties/Variabel, Flexbox, CSS Grid, Glassmorphism)
+*   **JavaScript (Vanilla)** (Manipulasi DOM murni, penanganan event, tanpa package manager seperti npm/yarn)
 
-## 🛠️ Teknologi
+## 👥 Tim Pengembang (Kelompok)
 
-| Teknologi | Keterangan |
-|-----------|------------|
-| HTML5 | Struktur halaman |
-| CSS3 | Styling, glassmorphism, animasi |
-| JavaScript (Vanilla) | Interaksi, filter, lightbox, scroll reveal |
-| Google Fonts | Playfair Display, Inter |
+Proyek ini dikembangkan oleh:
 
-> Tidak menggunakan framework, library, atau dependency npm.
+| NIM | Nama |
+| :--- | :--- |
+| **2401020160** | Muhammad Fauzi |
+| **2401020151** | Christian Aprilio Sihite |
+| **2401020157** | Andrian Yuza Swanda |
+| **2401020165** | Adhie Mulia Sembiring |
 
-## 📁 Struktur File
+## 📂 Struktur File Utama
 
-```
-Perancangan-Web/
-├── index.html        # Halaman beranda
-├── budaya.html       # Halaman budaya & Gurindam
-├── galeri.html       # Halaman galeri visual
-├── wisata.html       # Halaman destinasi wisata
-├── style.css         # Stylesheet utama
-├── script.js         # JavaScript interaksi
-├── README.md         # Dokumentasi project
-└── gambar/           # Folder aset gambar
-    ├── Tari zapin.webp
-    ├── gong-gong.webp
-    ├── songket.webp
-    ├── songket emas.webp
-    ├── otak-otak.webp
-    ├── pula penyengat.webp
-    ├── Masjid penyengat.webp
-    ├── Kampung Pelangi.webp
-    ├── Pantai tanjung Siambang.webp
-    ├── Vihara.webp
-    ├── Senggarang.webp
-    └── Dompak.webp
-```
-
-## 🚀 Cara Menjalankan
-
-1. Clone atau download repository ini
-2. Buka file `index.html` di browser (Chrome, Firefox, Edge, Safari)
-3. Atau gunakan Live Server di VS Code
-
-```bash
-# Clone repository
-git clone <url-repository>
-
-# Buka di browser
-# Klik kanan index.html → Open with → Browser
-# Atau gunakan extension Live Server di VS Code
-```
-
-## 📄 Daftar Halaman
-
-| Halaman | File | Deskripsi |
-|---------|------|-----------|
-| Beranda | `index.html` | Landing page dengan hero, tentang, dan navigasi jelajahi |
-| Budaya | `budaya.html` | Tari Zapin, kuliner, songket, dan Gurindam Dua Belas |
-| Galeri | `galeri.html` | Galeri visual dengan filter dan lightbox |
-| Wisata | `wisata.html` | Destinasi wisata dengan tag aktivitas |
-
-## 👥 Anggota Kelompok
-
-<!-- Silakan isi nama anggota kelompok di bawah ini -->
-1. [Nama Anggota 1]
-2. [Nama Anggota 2]
-3. [Nama Anggota 3]
-4. [Nama Anggota 4]
-
-## 📝 Catatan
-
-Project ini dibuat sebagai tugas mata kuliah **Perancangan Web**. Website bersifat statis dan tidak memerlukan backend atau database.
+*   `index.html` — Halaman utama (Beranda)
+*   `budaya.html` — Halaman edukasi warisan sastra, tari, dan kerajinan Melayu
+*   `galeri.html` — Halaman kumpulan visualisasi pariwisata dengan filter kategori
+*   `wisata.html` — Halaman eksplorasi destinasi alam dan sejarah
+*   `style.css` — Seluruh token desain, tata letak, dan animasi
+*   `script.js` — Logika interaktivitas, filter galeri, *scroll reveal*, dan slider
+*   `/gambar/` — Direktori penyimpanan aset visual (.webp, .png, dll)
 
 ---
-
-&copy; 2026 Pesona Budaya Tanjungpinang — Warisan Melayu Kepulauan Riau
+*Dibuat dengan dedikasi tinggi untuk melestarikan dan memperkenalkan kekayaan Budaya Melayu Tanjungpinang ke kancah global.*

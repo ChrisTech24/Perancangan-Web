@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Budaya Melayu Tanjungpinang dan Gurindam Dua Belas dalam pengalaman halaman terpisah.">
+  <meta name="description" content="Budaya Melayu Tanjungpinang — Tari Zapin, kuliner tradisional, songket, dan Gurindam Dua Belas karya Raja Ali Haji.">
   <title>Budaya — Pesona Budaya Tanjungpinang</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -28,7 +28,7 @@
         <li><a href="galeri.html">Galeri</a></li>
         <li><a href="wisata.html" class="nav-cta">Wisata</a></li>
       </ul>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <button class="nav-toggle" id="nav-toggle" aria-label="Buka menu navigasi" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
@@ -36,10 +36,12 @@
     </div>
   </nav>
 
-  <section class="hero culture-hero">
+  <section class="hero culture-hero" id="hero">
     <div class="hero-overlay"></div>
+    <canvas id="hero-particles"></canvas>
     <div class="hero-ornament hero-ornament-1"></div>
     <div class="hero-ornament hero-ornament-2"></div>
+    <div class="hero-ornament hero-ornament-3"></div>
     <div class="container hero-content">
       <div class="hero-badge">
         <span class="dot"></span>
@@ -73,35 +75,58 @@
         <div class="culture-grid stagger-children">
           <div class="culture-card">
             <div class="culture-card-icon">
-              <span><img src="gambar/Tari zapin.webp" alt=""></span>
+              <span><img src="gambar/Tari zapin.webp" alt="Penari menarikan Tari Zapin Melayu tradisional"></span>
             </div>
             <div class="culture-card-body">
               <h3>Tari Zapin &amp; Joget</h3>
               <p>
                 Tarian Melayu yang memadukan gerakan anggun dengan musik gambus dan marwas.
               </p>
+              <div class="detail-panel" id="detail-zapin">
+                <p>Tari Zapin berasal dari pengaruh Arab yang berpadu dengan budaya Melayu. Tarian ini ditampilkan dalam berbagai acara adat, pernikahan, dan festival budaya. Iringan musik gambus dan marwas menciptakan irama khas yang memikat penonton.</p>
+              </div>
+              <button class="btn-detail" data-target="detail-zapin" aria-expanded="false">
+                Lihat Selengkapnya
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
             </div>
           </div>
+
           <div class="culture-card">
             <div class="culture-card-icon">
-              <span><img src="gambar/gong-gong.webp" alt=""></span>
+              <span><img src="gambar/gong-gong.webp" alt="Gonggong, kuliner laut khas Tanjungpinang"></span>
             </div>
             <div class="culture-card-body">
               <h3>Kuliner Tradisional</h3>
               <p>
                 Sajian khas seperti otak-otak, gonggong, dan mie tarempa yang menggugah selera.
               </p>
+              <div class="detail-panel" id="detail-kuliner">
+                <p>Kuliner Tanjungpinang sangat dipengaruhi oleh hasil laut dan rempah-rempah Melayu. Gonggong adalah kerang laut khas yang disajikan dengan sambal, sementara otak-otak terbuat dari ikan segar yang dibungkus daun kelapa lalu dibakar.</p>
+              </div>
+              <button class="btn-detail" data-target="detail-kuliner" aria-expanded="false">
+                Lihat Selengkapnya
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
             </div>
           </div>
+
           <div class="culture-card">
             <div class="culture-card-icon">
-              <span><img src="gambar/songket.webp" alt=""></span>
+              <span><img src="gambar/songket.webp" alt="Kain songket Melayu dengan motif emas tradisional"></span>
             </div>
             <div class="culture-card-body">
               <h3>Songket &amp; Kerajinan</h3>
               <p>
                 Tenun songket, ukiran kayu, dan handicraft Melayu yang memancarkan detail artistik.
               </p>
+              <div class="detail-panel" id="detail-songket">
+                <p>Songket merupakan tenun tradisional yang menggunakan benang emas dan perak untuk menciptakan motif khas Melayu. Setiap motif memiliki makna filosofis yang diwariskan turun-temurun dan sering digunakan dalam upacara adat serta pernikahan.</p>
+              </div>
+              <button class="btn-detail" data-target="detail-songket" aria-expanded="false">
+                Lihat Selengkapnya
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
             </div>
           </div>
         </div>
@@ -109,7 +134,7 @@
     </section>
 
     <!-- Wave Divider: Culture → Gurindam -->
-    <div class="wave-divider" style="background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-950) 50%, #070d2a 100%); margin-top: -2px;">
+    <div class="wave-divider" style="background: linear-gradient(135deg, #0c2e2b 0%, #071a18 50%, #040e0d 100%); margin-top: -2px;">
       <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <path fill="var(--blue-50)" d="M0,0 C360,80 1080,10 1440,60 L1440,0 L0,0 Z"/>
       </svg>
@@ -124,60 +149,91 @@
             Karya sastra agung Raja Ali Haji yang memuat 12 pasal nasihat kehidupan, menjadi kebanggaan budaya Melayu Tanjungpinang.
           </p>
         </div>
+      </div>
 
-        <div class="gurindam-slider-wrapper reveal-scale">
+      <div class="gurindam-slider-wrapper reveal-scale">
+          <button class="slider-btn prev" aria-label="Pasal Sebelumnya">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
           <div class="gurindam-slider">
             <article class="gurindam-card">
+              <span class="gurindam-tag">Nasihat</span>
               <h3>Pasal 1</h3>
               <p>Barang siapa mengenal yang empat, maka ia itulah orang yang ma'rifat.</p>
+              <div class="gurindam-meaning">Mengenal hakikat diri, Allah, dunia, dan akhirat.</div>
             </article>
             <article class="gurindam-card">
+              <span class="gurindam-tag">Adab</span>
               <h3>Pasal 2</h3>
               <p>Barang siapa mengenal Allah, suruh dan tegahnya tiada ia menyalah.</p>
+              <div class="gurindam-meaning">Ketaatan kepada perintah dan larangan Tuhan.</div>
             </article>
             <article class="gurindam-card">
+              <span class="gurindam-tag">Kearifan</span>
               <h3>Pasal 3</h3>
               <p>Barang siapa mengenal diri, maka ia telah mengenal Tuhan yang diri.</p>
+              <div class="gurindam-meaning">Mengenal diri sendiri adalah jalan mengenal Tuhan.</div>
             </article>
             <article class="gurindam-card">
+              <span class="gurindam-tag">Moral</span>
               <h3>Pasal 4</h3>
               <p>Barang siapa mengenal Allah, tidak yang lain ia sembah dan sembahnya.</p>
+              <div class="gurindam-meaning">Ketulusan dalam beribadah hanya kepada Allah.</div>
             </article>
             <article class="gurindam-card">
+              <span class="gurindam-tag">Nasihat</span>
               <h3>Pasal 5</h3>
               <p>Barang siapa mengenal niat, ia itulah yang mengadili perbuatan.</p>
+              <div class="gurindam-meaning">Niat menentukan nilai setiap perbuatan.</div>
             </article>
             <article class="gurindam-card">
+              <span class="gurindam-tag">Kearifan</span>
               <h3>Pasal 6</h3>
               <p>Barang siapa mengenal amal, ia itulah yang menjadi timbangannya.</p>
+              <div class="gurindam-meaning">Amal perbuatan menjadi ukuran kebaikan hidup.</div>
             </article>
             <article class="gurindam-card">
+              <span class="gurindam-tag">Adab</span>
               <h3>Pasal 7</h3>
               <p>Barang siapa mengenal bakti, ia itulah orang yang membelah adat.</p>
+              <div class="gurindam-meaning">Bakti dan kesetiaan sebagai pondasi kehidupan.</div>
             </article>
             <article class="gurindam-card">
+              <span class="gurindam-tag">Moral</span>
               <h3>Pasal 8</h3>
               <p>Barang siapa mengenal taat, ia itulah orang yang memelihara diri.</p>
+              <div class="gurindam-meaning">Ketaatan menjaga kehormatan dan martabat diri.</div>
             </article>
             <article class="gurindam-card">
+              <span class="gurindam-tag">Nasihat</span>
               <h3>Pasal 9</h3>
               <p>Barang siapa mengenal jujur, ia itulah tempat orang memberi amanat.</p>
+              <div class="gurindam-meaning">Kejujuran membangun kepercayaan orang lain.</div>
             </article>
             <article class="gurindam-card">
+              <span class="gurindam-tag">Kearifan</span>
               <h3>Pasal 10</h3>
               <p>Barang siapa mengenal putus, itu tanda tiada bersabar.</p>
+              <div class="gurindam-meaning">Kesabaran adalah kunci menghadapi cobaan.</div>
             </article>
             <article class="gurindam-card">
+              <span class="gurindam-tag">Moral</span>
               <h3>Pasal 11</h3>
               <p>Barang siapa mengenal sungguh, ia itulah orang yang sudah berkah.</p>
+              <div class="gurindam-meaning">Kesungguhan hati mendatangkan keberkahan.</div>
             </article>
             <article class="gurindam-card">
+              <span class="gurindam-tag">Adab</span>
               <h3>Pasal 12</h3>
               <p>Barang siapa mengenal cinta, tiada mengharap puji serta kata.</p>
+              <div class="gurindam-meaning">Cinta sejati tidak mengharapkan pujian.</div>
             </article>
           </div>
+          <button class="slider-btn next" aria-label="Pasal Berikutnya">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+          <div class="slider-dots"></div>
         </div>
-      </div>
     </section>
   </main>
 
@@ -202,19 +258,21 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Kontak</h4>
+          <h4>Destinasi</h4>
           <ul>
-            <li><a href="#">📍 Jl. Merdeka No. 1, Tanjungpinang</a></li>
-            <li><a href="#">📞 +62 771 123 456</a></li>
-            <li><a href="#">✉️ info@budayatanjungpinang.id</a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Pulau+Penyengat+Tanjungpinang" target="_blank" rel="noopener noreferrer">Pulau Penyengat</a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Kampung+Pelangi+Tanjungpinang" target="_blank" rel="noopener noreferrer">Kampung Pelangi</a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Pantai+Tanjung+Siambang+Tanjungpinang" target="_blank" rel="noopener noreferrer">Tanjung Siambang</a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Senggarang+Tanjungpinang" target="_blank" rel="noopener noreferrer">Senggarang</a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Vihara+Ksitigarbha+Bodhisattva+Tanjungpinang" target="_blank" rel="noopener noreferrer">Vihara Ksitigarbha</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Destinasi</h4>
+          <h4>Kontak</h4>
           <ul>
-            <li><a href="#">Pulau Penyengat</a></li>
-            <li><a href="#">Kampung Pelangi</a></li>
-            <li><a href="#">Tanjung Siambang</a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Jl.+Merdeka+No.1%2C+Tanjungpinang+Kota%2C+Kec.+Tj.+Pinang+Kota%2C+Kota+Tanjung+Pinang%2C+Kepulauan+Riau" target="_blank" rel="noopener noreferrer">📍 Jl. Merdeka No. 1, Tanjungpinang</a></li>
+            <li><a href="https://wa.me/6281378835553?text=Halo%20Tour%20Guide%20Tanjungpinang!%20Saya%20baru%20di%20Tanjungpinang%20dan%20tertarik%20untuk%20tahu%20lebih%20banyak%20tentang%20destinasi%20wisata%20dan%20budaya%20di%20sini.%20Bisa%20tolong%20pandu%20saya%3F" target="_blank" rel="noopener noreferrer">📞 +62 813-7883-5553 (Tour Guide)</a></li>
+            <li><a href="mailto:info@budayatanjungpinang.id">✉️ info@budayatanjungpinang.id</a></li>
           </ul>
         </div>
       </div>

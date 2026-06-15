@@ -28,10 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // ============================
-  // Navbar
+  // Navbar Scroll
   // ============================
   const navbar = document.querySelector('.navbar');
   const handleScroll = () => {
+    if (!navbar) return;
     if (window.scrollY > 60) {
       navbar.classList.add('scrolled');
     } else {
@@ -43,6 +44,19 @@ document.addEventListener('DOMContentLoaded', () => {
   handleScroll();
 
   // ============================
+  // Active Nav Link (auto-detect page)
+  // ============================
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  const navLinksAll = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+  navLinksAll.forEach(link => {
+    const href = link.getAttribute('href');
+    link.classList.remove('active');
+    if (href === currentPage) {
+      link.classList.add('active');
+    }
+  });
+
+  // ============================
   // Mobile Menu
   // ============================
   const navToggle = document.getElementById('nav-toggle');
@@ -50,14 +64,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (navToggle && navLinks) {
     navToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
+      const isOpen = navLinks.classList.toggle('open');
       navToggle.classList.toggle('active');
+      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
 
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         navLinks.classList.remove('open');
         navToggle.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
       });
     });
 
@@ -65,22 +81,40 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
         navLinks.classList.remove('open');
         navToggle.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
       }
     });
   }
 
   // ============================
-  // Scroll Reveal
+  // Smooth Scroll for Anchors
   // ============================
-  const revealElements = document.querySelectorAll('.reveal, .reveal-scale, .stagger-children');
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const targetId = anchor.getAttribute('href');
+      if (targetId === '#') return;
+      const target = document.querySelector(targetId);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
-  revealElements.forEach(el => revealObserver.observe(el));
+  });
+
+  // ============================
+  // Scroll Reveal (IntersectionObserver)
+  // ============================
+  const revealElements = document.querySelectorAll('.reveal, .reveal-scale, .stagger-children');
+  if (revealElements.length > 0) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+    revealElements.forEach(el => revealObserver.observe(el));
+  }
 
   // ============================
   // Counter Animation
@@ -214,6 +248,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const filterBtns = document.querySelectorAll('.gallery-filter-btn');
   const galleryCards = document.querySelectorAll('.gallery-card[data-category]');
 
+  // Initialize cards
+  galleryCards.forEach(card => {
+    card.classList.add('show-card');
+  });
+
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
@@ -221,58 +260,63 @@ document.addEventListener('DOMContentLoaded', () => {
       const filter = btn.getAttribute('data-filter');
 
       galleryCards.forEach(card => {
-        if (filter === 'all' || card.getAttribute('data-category') === filter) {
-          card.style.display = '';
-          card.style.opacity = '0';
-          card.style.transform = 'scale(0.9)';
-          requestAnimationFrame(() => {
-            card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-            card.style.opacity = '1';
-            card.style.transform = 'scale(1)';
-          });
+        const isMatch = filter === 'all' || card.getAttribute('data-category') === filter;
+
+        if (card.dataset.timeoutId) {
+          clearTimeout(parseInt(card.dataset.timeoutId));
+          card.dataset.timeoutId = '';
+        }
+
+        if (isMatch) {
+          card.classList.remove('hidden-card');
+          void card.offsetWidth; // Force reflow
+          card.classList.add('show-card');
         } else {
-          card.style.opacity = '0';
-          card.style.transform = 'scale(0.9)';
-          setTimeout(() => { card.style.display = 'none'; }, 300);
+          card.classList.remove('show-card');
+          const tId = setTimeout(() => {
+            if (!card.classList.contains('show-card')) {
+              card.classList.add('hidden-card');
+            }
+          }, 300);
+          card.dataset.timeoutId = tId;
         }
       });
     });
   });
 
   // ============================
-  // Gallery Lightbox (YANG SUDAH DIPERBAIKI)
+  // Gallery Lightbox
   // ============================
   const lightbox = document.getElementById('lightbox');
   const lightboxClose = document.getElementById('lightbox-close');
-  const lightboxgambar = document.getElementById('lightbox-gambar'); 
+  const lightboxGambar = document.getElementById('lightbox-gambar');
   const lightboxTitle = document.getElementById('lightbox-title');
   const lightboxDesc = document.getElementById('lightbox-desc');
 
-  // Mengecek apakah elemen lightboxgambar ditemukan di HTML
-  if (lightbox && lightboxgambar) { 
+  if (lightbox && lightboxGambar) {
     galleryCards.forEach(card => {
       card.addEventListener('click', () => {
         const gambar = card.getAttribute('data-gambar');
         const title = card.getAttribute('data-title');
         const desc = card.getAttribute('data-desc');
 
-        lightboxgambar.src = gambar; 
-        lightboxgambar.alt = title;  
-        lightboxTitle.textContent = title;
-        lightboxDesc.textContent = desc;
-        
+        lightboxGambar.src = gambar;
+        lightboxGambar.alt = title;
+        if (lightboxTitle) lightboxTitle.textContent = title;
+        if (lightboxDesc) lightboxDesc.textContent = desc;
+
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
       });
     });
-    
+
     const closeLightbox = () => {
       lightbox.classList.remove('active');
       document.body.style.overflow = '';
-      setTimeout(() => { lightboxgambar.src = ""; }, 400);
+      setTimeout(() => { lightboxGambar.src = ""; }, 400);
     };
 
-    lightboxClose.addEventListener('click', closeLightbox);
+    if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox) closeLightbox();
     });
@@ -281,46 +325,162 @@ document.addEventListener('DOMContentLoaded', () => {
         closeLightbox();
       }
     });
-  } else if (lightbox && !lightboxgambar) {
-      console.error("ERROR: ID 'lightbox-gambar' tidak ditemukan di file HTML kamu!");
   }
 
   // ============================
-  // Gurindam Slider
+  // Expand / Collapse Detail Panels
   // ============================
-  const sliders = document.querySelectorAll('.gurindam-slider');
-  sliders.forEach(slider => {
-    let isDown = false; let startX; let scrollLeft;
-    slider.addEventListener('mousedown', (e) => {
-      isDown = true; slider.classList.add('dragging');
-      startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft;
+  const detailButtons = document.querySelectorAll('.btn-detail[data-target]');
+  detailButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-target');
+      const panel = document.getElementById(targetId);
+      if (!panel) return;
+
+      const isOpen = panel.classList.contains('open');
+
+      if (isOpen) {
+        panel.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.innerHTML = 'Lihat Selengkapnya <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
+      } else {
+        panel.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        btn.innerHTML = 'Tutup Detail <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
+      }
     });
-    slider.addEventListener('mouseleave', () => { isDown = false; slider.classList.remove('dragging'); });
-    slider.addEventListener('mouseup', () => { isDown = false; slider.classList.remove('dragging'); });
+  });
+
+  // ============================
+  // Gurindam Carousel Slider (1-by-1 Snapping)
+  // ============================
+  const slider = document.querySelector('.gurindam-slider');
+  if (slider) {
+    const cards = slider.querySelectorAll('.gurindam-card');
+    const prevBtn = document.querySelector('.slider-btn.prev');
+    const nextBtn = document.querySelector('.slider-btn.next');
+    const dotsContainer = document.querySelector('.slider-dots');
+    
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let activeIndex = 0;
+
+    // Generate indicator dots dynamically
+    if (dotsContainer && cards.length > 0) {
+      cards.forEach((_, idx) => {
+        const dot = document.createElement('span');
+        dot.classList.add('slider-dot');
+        if (idx === 0) dot.classList.add('active');
+        dot.setAttribute('aria-label', `Pasal ${idx + 1}`);
+        dot.addEventListener('click', () => {
+          scrollToIndex(idx);
+        });
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    const dots = document.querySelectorAll('.slider-dot');
+
+    // Drag-to-scroll support
+    slider.addEventListener('mousedown', (e) => {
+      isDown = true;
+      slider.classList.add('dragging');
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+    });
+
+    slider.addEventListener('mouseleave', () => {
+      isDown = false;
+      slider.classList.remove('dragging');
+    });
+
+    slider.addEventListener('mouseup', () => {
+      isDown = false;
+      slider.classList.remove('dragging');
+    });
+
     slider.addEventListener('mousemove', (e) => {
-      if (!isDown) return; e.preventDefault();
-      const x = e.pageX - slider.offsetLeft; const walk = (x - startX) * 2;
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 1.5;
       slider.scrollLeft = scrollLeft - walk;
     });
 
-    let targetScroll = slider.scrollLeft; let animating = false;
-    const smoothScroll = () => {
-      const diff = targetScroll - slider.scrollLeft;
-      if (Math.abs(diff) < 0.5) { slider.scrollLeft = targetScroll; animating = false; return; }
-      slider.scrollLeft += diff * 0.12; requestAnimationFrame(smoothScroll);
-    };
+    // Helper to scroll to specific card index
+    function scrollToIndex(idx) {
+      if (idx < 0 || idx >= cards.length) return;
+      const card = cards[idx];
+      const targetScroll = card.offsetLeft - (slider.clientWidth - card.clientWidth) / 2;
+      slider.scrollTo({
+        left: targetScroll,
+        behavior: 'smooth'
+      });
+    }
 
-    slider.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-      targetScroll = Math.max(0, Math.min(slider.scrollWidth - slider.clientWidth, targetScroll + delta * 1.8));
-      if (!animating) { animating = true; requestAnimationFrame(smoothScroll); }
-    }, { passive: false });
+    // Button controls
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        if (activeIndex > 0) {
+          scrollToIndex(activeIndex - 1);
+        } else {
+          scrollToIndex(cards.length - 1); // Loop to last
+        }
+      });
+    }
 
-    slider.addEventListener('scroll', () => {
-      if (!animating) targetScroll = slider.scrollLeft;
-    }, { passive: true });
-  });
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        if (activeIndex < cards.length - 1) {
+          scrollToIndex(activeIndex + 1);
+        } else {
+          scrollToIndex(0); // Loop to first
+        }
+      });
+    }
+
+    // Update active slide class on scroll
+    function updateActiveCard() {
+      const sliderCenter = slider.scrollLeft + slider.clientWidth / 2;
+      let closestIdx = 0;
+      let minDiff = Infinity;
+
+      cards.forEach((card, idx) => {
+        const cardCenter = card.offsetLeft + card.clientWidth / 2;
+        const diff = Math.abs(sliderCenter - cardCenter);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIdx = idx;
+        }
+      });
+
+      activeIndex = closestIdx;
+
+      cards.forEach((card, idx) => {
+        if (idx === closestIdx) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      });
+
+      if (dots.length > 0) {
+        dots.forEach((dot, idx) => {
+          if (idx === closestIdx) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    slider.addEventListener('scroll', updateActiveCard, { passive: true });
+    
+    // Initial call
+    setTimeout(updateActiveCard, 100);
+  }
 
   // ============================
   // Parallax Effect on Hero Ornaments

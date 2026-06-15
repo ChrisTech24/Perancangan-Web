@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Destinasi wisata budaya Tanjungpinang.">
+  <meta name="description" content="Destinasi wisata budaya dan alam di Tanjungpinang — Pulau Penyengat, Kampung Pelangi, Tanjung Siambang, dan lainnya.">
   <title>Wisata — Pesona Budaya Tanjungpinang</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -26,9 +26,9 @@
         <li><a href="index.html">Beranda</a></li>
         <li><a href="budaya.html">Budaya</a></li>
         <li><a href="galeri.html">Galeri</a></li>
-        <li><a href="wisata.html" class="nav-cta">Wisata</a></li>
+        <li><a href="wisata.html" class="nav-cta active">Wisata</a></li>
       </ul>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <button class="nav-toggle" id="nav-toggle" aria-label="Buka menu navigasi" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
@@ -36,9 +36,11 @@
     </div>
   </nav>
 
-  <section class="hero culture-hero">
+  <section class="hero culture-hero" id="hero">
     <div class="hero-overlay"></div>
+    <canvas id="hero-particles"></canvas>
     <div class="hero-ornament hero-ornament-1"></div>
+    <div class="hero-ornament hero-ornament-2"></div>
     <div class="hero-ornament hero-ornament-3"></div>
     <div class="container hero-content">
       <div class="hero-badge">
@@ -69,75 +71,115 @@
             Pilih tujuan wisata yang menghadirkan sejarah, kehidupan pesisir, dan keindahan alam Tanjungpinang.
           </p>
         </div>
-
         <div class="dest-list stagger-children">
           
           <div class="dest-item reveal-scale">
             <div class="dest-item-img">
-              <img src="gambar/pula penyengat.webp" alt="Pulau Penyengat">
+              <img src="gambar/pula penyengat.webp" alt="Pemandangan Pulau Penyengat dengan Masjid Sultan Riau">
             </div>
             <div class="dest-item-content">
               <div class="dest-item-num">01</div>
               <h4>Pulau Penyengat</h4>
               <p>Pulau bersejarah dengan Masjid Raya Sultan Riau dan makam raja-raja Melayu.</p>
+              <div class="detail-panel" id="detail-penyengat">
+                <p>Pulau Penyengat merupakan pusat peradaban Melayu Riau-Lingga. Di sini terdapat Masjid Raya Sultan Riau yang dibangun menggunakan campuran putih telur, serta berbagai makam raja and ulama. Pulau ini juga menjadi tempat lahirnya Gurindam Dua Belas oleh Raja Ali Haji.</p>
+              </div>
+              <button class="btn-detail" data-target="detail-penyengat" aria-expanded="false">
+                Lihat Selengkapnya
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
             </div>
           </div>
 
           <div class="dest-item reveal-scale">
             <div class="dest-item-img">
-              <img src="gambar/Kampung Pelangi.webp" alt="Kampung Pelangi">
+              <img src="gambar/Kampung Pelangi.webp" alt="Rumah-rumah berwarna cerah di Kampung Pelangi Tanjungpinang">
             </div>
             <div class="dest-item-content">
               <div class="dest-item-num">02</div>
               <h4>Kampung Pelangi</h4>
               <p>Desa nelayan berwarna-warni yang menampilkan otentisitas kehidupan pesisir.</p>
+              <div class="detail-panel" id="detail-pelangi">
+                <p>Kampung Pelangi adalah perkampungan nelayan yang rumah-rumahnya dihiasi warna-warni cerah. Terletak di pinggir laut, kampung ini menjadi spot foto favorit yang menampilkan kehidupan otentik masyarakat pesisir Tanjungpinang.</p>
+              </div>
+              <button class="btn-detail" data-target="detail-pelangi" aria-expanded="false">
+                Lihat Selengkapnya
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
             </div>
           </div>
 
           <div class="dest-item reveal-scale">
             <div class="dest-item-img">
-              <img src="gambar/Pantai tanjung Siambang.webp" alt="Tanjung Siambang">
+              <img src="gambar/Pantai tanjung Siambang.webp" alt="Pantai Tanjung Siambang saat senja">
             </div>
             <div class="dest-item-content">
               <div class="dest-item-num">03</div>
               <h4>Tanjung Siambang</h4>
               <p>Pantai tenang dengan panorama laut dan matahari terbenam yang memikat.</p>
+              <div class="detail-panel" id="detail-siambang">
+                <p>Pantai Tanjung Siambang menyuguhkan pemandangan matahari terbenam yang spektakuler. Dengan suasana tenang dan hamparan pasir yang bersih, tempat ini ideal untuk relaksasi dan menikmati keindahan alam pesisir.</p>
+              </div>
+              <button class="btn-detail" data-target="detail-siambang" aria-expanded="false">
+                Lihat Selengkapnya
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
             </div>
           </div>
 
           <div class="dest-item reveal-scale">
             <div class="dest-item-img">
-              <img src="gambar/Vihara.webp" alt="Vihara Ksitigarbha">
+              <img src="gambar/Vihara.webp" alt="Vihara Ksitigarbha Bodhisattva di Senggarang">
             </div>
             <div class="dest-item-content">
               <div class="dest-item-num">04</div>
               <h4>Vihara Ksitigarbha</h4>
               <p>Kelenteng tua yang menghadirkan harmoni antar budaya di Kota Tanjungpinang.</p>
+              <div class="detail-panel" id="detail-vihara">
+                <p>Vihara Ksitigarbha Bodhisattva merupakan kelenteng bersejarah yang menunjukkan keharmonisan antar budaya di Tanjungpinang. Arsitekturnya yang unik dan lokasinya di tepi laut menjadikannya salah satu landmark ikonik kota ini.</p>
+              </div>
+              <button class="btn-detail" data-target="detail-vihara" aria-expanded="false">
+                Lihat Selengkapnya
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
             </div>
           </div>
 
           <div class="dest-item reveal-scale">
             <div class="dest-item-img">
-              <img src="gambar/Senggarang.webp" alt="Senggarang">
+              <img src="gambar/Senggarang.webp" alt="Kawasan pesisir Senggarang dengan bangunan bersejarah">
             </div>
             <div class="dest-item-content">
               <div class="dest-item-num">05</div>
               <h4>Senggarang</h4>
               <p>Kawasan pecinan tertua di Tanjungpinang yang kaya akan tradisi nelayan, kelenteng bersejarah, dan kuliner laut yang khas.</p>
+              <div class="detail-panel" id="detail-senggarang">
+                <p>Senggarang adalah kawasan pecinan tertua di Tanjungpinang dengan pohon beringin raksasa yang tumbuh di atas kelenteng. Daerah ini terkenal dengan tradisi nelayan, arsitektur Tionghoa kuno, dan kuliner laut segar yang menjadi daya tarik wisatawan.</p>
+              </div>
+              <button class="btn-detail" data-target="detail-senggarang" aria-expanded="false">
+                Lihat Selengkapnya
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
             </div>
           </div>
 
           <div class="dest-item reveal-scale">
             <div class="dest-item-img">
-              <img src="gambar/Dompak.webp" alt="Dompak">
+              <img src="gambar/Dompak.webp" alt="Area pesisir Dompak dengan pemandangan laut">
             </div>
             <div class="dest-item-content">
               <div class="dest-item-num">06</div>
               <h4>Dompak</h4>
               <p>Area pesisir dengan pelabuhan kecil dan suasana pesisir yang tenang.</p>
+              <div class="detail-panel" id="detail-dompak">
+                <p>Dompak merupakan kawasan pusat pemerintahan Provinsi Kepulauan Riau. Selain gedung-gedung pemerintahan modern, area ini juga menawarkan pemandangan pesisir yang indah dan taman-taman hijau yang cocok untuk rekreasi keluarga.</p>
+              </div>
+              <button class="btn-detail" data-target="detail-dompak" aria-expanded="false">
+                Lihat Selengkapnya
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
             </div>
           </div>
-
         </div>
       </div>
     </section>
@@ -164,19 +206,21 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Kontak</h4>
+          <h4>Destinasi</h4>
           <ul>
-            <li><a href="#">📍 Jl. Merdeka No. 1, Tanjungpinang</a></li>
-            <li><a href="#">📞 +62 771 123 456</a></li>
-            <li><a href="#">✉️ info@budayatanjungpinang.id</a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Pulau+Penyengat+Tanjungpinang" target="_blank" rel="noopener noreferrer">Pulau Penyengat</a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Kampung+Pelangi+Tanjungpinang" target="_blank" rel="noopener noreferrer">Kampung Pelangi</a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Pantai+Tanjung+Siambang+Tanjungpinang" target="_blank" rel="noopener noreferrer">Tanjung Siambang</a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Senggarang+Tanjungpinang" target="_blank" rel="noopener noreferrer">Senggarang</a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Vihara+Ksitigarbha+Bodhisattva+Tanjungpinang" target="_blank" rel="noopener noreferrer">Vihara Ksitigarbha</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Destinasi</h4>
+          <h4>Kontak</h4>
           <ul>
-            <li><a href="#">Pulau Penyengat</a></li>
-            <li><a href="#">Kampung Pelangi</a></li>
-            <li><a href="#">Tanjung Siambang</a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Jl.+Merdeka+No.1%2C+Tanjungpinang+Kota%2C+Kec.+Tj.+Pinang+Kota%2C+Kota+Tanjung+Pinang%2C+Kepulauan+Riau" target="_blank" rel="noopener noreferrer">📍 Jl. Merdeka No. 1, Tanjungpinang</a></li>
+            <li><a href="https://wa.me/6281378835553?text=Halo%20Tour%20Guide%20Tanjungpinang!%20Saya%20baru%20di%20Tanjungpinang%20dan%20tertarik%20untuk%20tahu%20lebih%20banyak%20tentang%20destinasi%20wisata%20dan%20budaya%20di%20sini.%20Bisa%20tolong%20pandu%20saya%3F" target="_blank" rel="noopener noreferrer">📞 +62 813-7883-5553 (Tour Guide)</a></li>
+            <li><a href="mailto:info@budayatanjungpinang.id">✉️ info@budayatanjungpinang.id</a></li>
           </ul>
         </div>
       </div>

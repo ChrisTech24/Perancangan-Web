@@ -328,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================
-  // Expand / Collapse Detail Panels
+  // Expand / Collapse Detail Panels — Independent per card
   // ============================
   const detailButtons = document.querySelectorAll('.btn-detail[data-target]');
   detailButtons.forEach(btn => {
@@ -340,10 +340,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const isOpen = panel.classList.contains('open');
 
       if (isOpen) {
+        // Close this panel
         panel.classList.remove('open');
         btn.setAttribute('aria-expanded', 'false');
         btn.innerHTML = 'Lihat Selengkapnya <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
       } else {
+        // Open this panel only — other panels stay unchanged
         panel.classList.add('open');
         btn.setAttribute('aria-expanded', 'true');
         btn.innerHTML = 'Tutup Detail <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';

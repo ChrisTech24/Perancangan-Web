@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================
-  // Gallery Filter
+  // Gallery Filter — Smooth Transitions
   // ============================
   const filterBtns = document.querySelectorAll('.gallery-filter-btn');
   const galleryCards = document.querySelectorAll('.gallery-card[data-category]');
@@ -253,34 +253,58 @@ document.addEventListener('DOMContentLoaded', () => {
     card.classList.add('show-card');
   });
 
+  let hideTimer = null;
+
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       const filter = btn.getAttribute('data-filter');
 
+      // Clear any pending hide timer
+      if (hideTimer) clearTimeout(hideTimer);
+
+      // Phase 1: Immediately fade out non-matching cards
       galleryCards.forEach(card => {
         const isMatch = filter === 'all' || card.getAttribute('data-category') === filter;
-
-        if (card.dataset.timeoutId) {
-          clearTimeout(parseInt(card.dataset.timeoutId));
-          card.dataset.timeoutId = '';
-        }
-
-        if (isMatch) {
-          card.classList.remove('hidden-card');
-          void card.offsetWidth; // Force reflow
-          card.classList.add('show-card');
-        } else {
+        if (!isMatch) {
           card.classList.remove('show-card');
-          const tId = setTimeout(() => {
-            if (!card.classList.contains('show-card')) {
-              card.classList.add('hidden-card');
-            }
-          }, 300);
-          card.dataset.timeoutId = tId;
         }
       });
+
+      // Phase 2: After fade-out completes, hide them & show matching cards
+      hideTimer = setTimeout(() => {
+        // Collapse non-matching cards
+        galleryCards.forEach(card => {
+          const isMatch = filter === 'all' || card.getAttribute('data-category') === filter;
+          if (!isMatch) {
+            card.classList.add('hidden-card');
+          }
+        });
+
+        // Prepare matching cards (un-hide but keep invisible)
+        galleryCards.forEach(card => {
+          const isMatch = filter === 'all' || card.getAttribute('data-category') === filter;
+          if (isMatch) {
+            card.classList.remove('hidden-card');
+            card.classList.remove('show-card');
+          }
+        });
+
+        // Stagger reveal matching cards
+        requestAnimationFrame(() => {
+          let delay = 0;
+          galleryCards.forEach(card => {
+            const isMatch = filter === 'all' || card.getAttribute('data-category') === filter;
+            if (isMatch) {
+              setTimeout(() => {
+                card.classList.add('show-card');
+              }, delay);
+              delay += 80;
+            }
+          });
+        });
+      }, 350);
     });
   });
 
@@ -337,18 +361,32 @@ document.addEventListener('DOMContentLoaded', () => {
       const panel = document.getElementById(targetId);
       if (!panel) return;
 
+      const card = btn.closest('.culture-card') || btn.closest('.dest-item');
+      const grid = card ? card.parentElement : null;
       const isOpen = panel.classList.contains('open');
 
       if (isOpen) {
         // Close this panel
         panel.classList.remove('open');
+        if (card) card.classList.remove('expanded');
         btn.setAttribute('aria-expanded', 'false');
         btn.innerHTML = 'Lihat Selengkapnya <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
       } else {
         // Open this panel only — other panels stay unchanged
         panel.classList.add('open');
+        if (card) card.classList.add('expanded');
         btn.setAttribute('aria-expanded', 'true');
         btn.innerHTML = 'Tutup Detail <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
+      }
+
+      // Update grid has-expanded state
+      if (grid) {
+        const anyExpanded = grid.querySelectorAll('.expanded').length > 0;
+        if (anyExpanded) {
+          grid.classList.add('has-expanded');
+        } else {
+          grid.classList.remove('has-expanded');
+        }
       }
     });
   });

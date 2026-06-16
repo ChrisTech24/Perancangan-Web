@@ -969,7 +969,6 @@ img {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  align-items: start;
 }
 
 .culture-card {
@@ -1128,7 +1127,6 @@ img {
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  align-items: start;
 }
 
 .dest-item {
@@ -1140,7 +1138,7 @@ img {
   border-radius: var(--radius-md);
   background: linear-gradient(135deg, var(--blue-50), rgba(255,255,255,0.6));
   border: 1px solid var(--blue-100);
-  transition: all 0.4s var(--ease-bounce);
+  transition: transform 0.4s var(--ease-bounce), box-shadow 0.4s, background 0.4s, border-color 0.4s;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -1629,22 +1627,21 @@ img {
   padding: 0;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--gray-100);
-  transition: transform 0.4s var(--ease-bounce), box-shadow 0.4s, opacity 0.3s ease;
+  transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s, opacity 0.35s ease;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   cursor: pointer;
   position: relative;
-  opacity: 1;
 }
 
 .gallery-card.hidden-card {
-  display: none !important;
+  display: none;
 }
 
 .gallery-card:not(.show-card) {
   opacity: 0;
-  transform: scale(0.9) !important;
+  transform: translateY(12px);
   pointer-events: none;
 }
 
@@ -2288,6 +2285,18 @@ img {
   background: rgba(255, 255, 255, 0.45);
   border-color: rgba(255, 255, 255, 0.5);
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* Prevent other cards in the row from stretching when any card is expanded */
+.culture-grid.has-expanded .culture-card:not(.expanded),
+.dest-list.has-expanded .dest-item:not(.expanded) {
+  align-self: start;
+}
+
+/* Ensure expanded cards stretch to match if multiple are expanded in the same row */
+.culture-grid.has-expanded .culture-card.expanded,
+.dest-list.has-expanded .dest-item.expanded {
+  align-self: stretch;
 }
 
 .btn-detail {
